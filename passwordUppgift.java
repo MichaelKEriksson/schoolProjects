@@ -17,7 +17,7 @@ public class passwordUppgift {
 			password = reader.nextLine();
 			tries -= 1; // counts down number of tries used with 1 every time
 			System.out.println("You have the total of tries left: " + tries); // prints number of tries left to use
-																				// based on the counter
+											  // based on the counter
 
 		}
 
