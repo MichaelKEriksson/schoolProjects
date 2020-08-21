@@ -11,13 +11,11 @@ public class passwordUppgift {
 		String password = reader.next();
 
 		int tries = 3; // number of tries the user has to type the correct password
-		while (tries > 0 && !password.equals("hejhej")) { // while the number of tries left is more then 0 and password
-															// not correct typed, try again
+		while (tries > 0 && !password.equals("hejhej")) { // while the number of tries left is more then 0 and password not correct typed, try again
 
 			password = reader.nextLine();
 			tries -= 1; // counts down number of tries used with 1 every time
-			System.out.println("You have the total of tries left: " + tries); // prints number of tries left to use
-											  // based on the counter
+			System.out.println("You have the total of tries left: " + tries); // prints number of tries left to use based on the counter
 
 		}
 
