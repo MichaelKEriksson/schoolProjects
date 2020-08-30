@@ -83,7 +83,7 @@ public class RockPaperScissors {
 			}
 
 		}
-reader.close();
+
 	}
 
 	public static String getPlayerOneName(Scanner reader) { 
