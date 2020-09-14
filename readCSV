@@ -1,0 +1,125 @@
+package parseCSV;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
+public class readCSV {
+
+	public static String COMMA_DELIMITER = ",";
+
+	public static void main(String[] args) {
+
+		List<List<String>> records = new ArrayList<>(); // Creates an ArrayList called records.
+		try (Scanner scanner = new Scanner(new File("sample.csv"));) { // reads in the sample.csv file
+			while (scanner.hasNextLine()) { // While the scanner finds a next line, keep scanning.
+				records.add(getRecordFromLine(scanner.nextLine()));
+				/*
+				 * Adds the formatted values from ArrayList values in to records Adds the
+				 * formatted values from the sample.csv file to records (more info on how in
+				 * "getRecordFromLine"
+				 */
+
+			}
+		} catch (FileNotFoundException e) { // To catch if the file is missing or not working.
+
+			e.printStackTrace();
+		}
+
+// *** Antal personer med bokstaven A i sitt namn ***
+
+		int i = 0; // Used to remove header row/line from sample.csv file
+
+		for (List<String> b : records) { // Loops through the formatted sample.csv file.
+//			System.out.println(b); // Prints the data/content in sample.csv file.
+
+			if (i != 0) {
+				/*
+				 * Used to remove header row/line from sample.csv file, this by doing a loop and
+				 * then increment by one, and by doing this skipping the first line / position
+				 * '0'
+				 */
+
+				if (b.get(1).toLowerCase().contains("a")) {
+					System.out.println("Names that contains atleast one 'a': " + b.get(1));
+
+				}
+				if (b.get(2).toLowerCase().contains("a")) {
+					System.out.println("Names that contains atleast one 'a': " + b.get(2));
+				}
+
+			} else { // Used to remove header row/line from sample.csv file
+				i++; // Used to remove header row/line from sample.csv file
+			}
+		}
+		System.out.println("End of part 1.");
+		System.out.println(); // For formatting
+
+// *** Vilka personer har samma tidstample *** 
+
+		HashMap<String, String> time = new HashMap<String, String>(); // Creates a HashMap String, using HashMap
+		i = 0; // Used to remove header row/line from sample.csv file
+
+		for (List<String> b : records) { // Loops through records
+			if (i != 0) { // Used to remove header row/line from sample.csv file
+				time.put(b.get(0), ""); // This adds the keys with timestamps and values with "nothing" to the HashMap
+
+			} else {// Used to remove header row/line from sample.csv file
+				i++; // Used to remove header row/line from sample.csv file
+			}
+
+		}
+
+		for (String timeStamp : time.keySet()) { // keySet used to access the keys only, keys named time.
+			/* String timeStamp is added with the timestamps from sample.csv */
+			String person = timeStamp + " "; // String person is filled with the timestamps saved in timeStamp and a
+												// blank space for formatting
+			for (List<String> b : records) { // Loops through the formatted sample.csv file.
+				if (b.get(0).equals(timeStamp)) { // If value from column 0 equals saved value in timeStamp...
+					person += b.get(1) + " " + b.get(2) + " "; // ...Add the names from column 1 and 2 that matches
+																// these lines, to string person
+				}
+			}
+			System.out.println(person); // prints out the timestamps and the names
+
+		}
+		System.out.println("End of part 2.");
+		System.out.println(); // For formatting
+
+		// *** Hur många personer har valt att arbeta med en Android app ***
+
+		int counter = 0; // Variable to keep track of number of found android users
+
+		for (List<String> b : records) { // Loops through records
+			if (b.get(6).toLowerCase().contains("android")) {
+				/*
+				 * If column 6 contains "android" (reads both upper/lower cases as lower case),
+				 * add +1 to counter
+				 */
+
+				counter++;
+
+			}
+		}
+
+		System.out.println("Amount of users on android device: " + counter);
+		System.out.println("End part 3.");
+	}
+
+	private static List<String> getRecordFromLine(String line) {
+		List<String> values = new ArrayList<String>(); // Creates a ArrayList called values
+		try (Scanner rowScanner = new Scanner(line)) { // Scanner that reads the line from ArrayList records.
+			rowScanner.useDelimiter(COMMA_DELIMITER); // "," sign is used to separate the read values
+			while (rowScanner.hasNext()) { // While Scanner finds a next value to scan, keep going.
+				values.add(rowScanner.next()); // Scanner keeps adding the read values to ArrayList values.
+			}
+
+		}
+
+		return values;
+	}
+
+}
