@@ -1,0 +1,16 @@
+package LabPack;
+
+import java.util.Scanner;
+
+public class FyraClass {
+
+	public static int intToCompare(Scanner reader) {
+		int number;
+
+		System.out.println("please enter a number to compare: ");
+		number = reader.nextInt();
+
+		return number;
+	}
+
+}
